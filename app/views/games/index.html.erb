@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Games</h1>
+<div class="search-container">
+    <%= form_tag(games_search_path, remote: true) do %>
+    <div class="field">
+      <%= label_tag :genre, "Genre: " %>
+
+      <%= select_tag :genre, options_from_collection_for_select(
+        @genres,
+          :name,
+          :name,
+          "0"), {include_blank: 'All'}
+       %>
+       <%= label_tag :order, 'Game order' %>
+       <%= select_tag :order, options_for_select(
+         [
+           "A-Z",
+           "Z-A",
+           "Highest rating first",
+           "Lowest rating first",
+           "Newest first",
+           "Oldest first"
+         ]), {include_blank: "Order"}
+        %>
+        <%= submit_tag 'Search' %>
+      </div>
+    <% end %>
+</div>
+
+<div id="genres">
+  <%= render 'games/genres' %>
+</div>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Review</th>
+      <th>Rating</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @games.each do |game| %>
+      <tr>
+        <td><%= game.title %></td>
+        <td><%= game.review %></td>
+        <td><%= game.rating %></td>
+        <td><%= link_to 'Show', game %></td>
+        <td><%= link_to 'Edit', edit_game_path(game) %></td>
+        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Game', new_game_path %>

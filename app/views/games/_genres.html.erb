@@ -1,0 +1,19 @@
+<h1><%= link_to @genre_name, root_path %></h1>
+<div id="games">
+  <% @games.each do |game| %>
+    <% if game.thumbnail.attached? %>
+      <%= link_to image_tag(game.resize_thumbnail), game_path(game, genre: @genre_name, order: @order) %>
+    <% else %>
+      <div style="width: 240px; height: 135px">
+        <%= link_to game.title, game %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% @genres.each do |genre| %>
+  <h1><%= genre.name %></h1>
+  <% genre.games.each do |game| %>
+    <h2><%= link_to image_tag(game.thumbnail, height: 200), game  %></h2>
+  <% end %>
+<% end %>

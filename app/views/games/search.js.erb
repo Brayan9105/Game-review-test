@@ -1,0 +1,4 @@
+var genres = document.getElementById("genres");
+var games = document.getElementById("games");
+window.history.replaceState(null, null, "?genre=<%= @genre_name %>?order=<%= @order %>");
+genres.innerHTML = "<%= j render 'games/genres' %>";
